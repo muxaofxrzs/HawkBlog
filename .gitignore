@@ -1,40 +1,3 @@
-<<<<<<< HEAD
-# Go项目的.gitignore文件
-
-# 编译生成的对象文件，静态和动态库（共享对象）
-*.o
-*.a
-*.so
-
-# 可执行文件
-*.exe
-*.out
-
-# Go二进制文件目录
-bin/
-
-# 依赖目录（由go mod或dep生成）
-/vendor/
-/go.sum
-/go.sum.tmp
-
-# IDE特定的文件
-.idea/
-.vscode/
-
-# 构建输出目录
-/build/
-
-# 测试和基准测试结果
-/test-results/
-
-# go coverage工具生成的覆盖率报告
-/coverage.txt
-
-# 系统目录
-.DS_Store
-
-Thumbs.db
 
 # Go项目的.gitignore文件
 
@@ -70,9 +33,44 @@ bin/
 
 # 系统目录
 .DS_Store
-<<<<<<< HEAD
+
 Thumbs.db
-=======
+
+# Go项目的.gitignore文件
+
+# 编译生成的对象文件，静态和动态库（共享对象）
+*.o
+*.a
+*.so
+
+# 可执行文件
+*.exe
+*.out
+
+# Go二进制文件目录
+bin/
+
+# 依赖目录（由go mod或dep生成）
+/vendor/
+/go.sum
+/go.sum.tmp
+
+# IDE特定的文件
+.idea/
+.vscode/
+
+# 构建输出目录
+/build/
+
+# 测试和基准测试结果
+/test-results/
+
+# go coverage工具生成的覆盖率报告
+/coverage.txt
+
+# 系统目录
+.DS_Store
+
+
 Thumbs.db
->>>>>>> 18d46af6ffe87823b1f11c9564f25c2f30e9a3ba
->>>>>>> ca210c362ab87b8e0b7665555256887231387f9b
+
