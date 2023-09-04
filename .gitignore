@@ -32,8 +32,6 @@ bin/
 
 # 系统目录
 .DS_Store
-<<<<<<< HEAD
+
 Thumbs.db
-=======
-Thumbs.db
->>>>>>> 18d46af6ffe87823b1f11c9564f25c2f30e9a3ba
+
