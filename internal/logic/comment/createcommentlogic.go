@@ -32,6 +32,7 @@ func NewCreateCommentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Cre
 
 func (l *CreateCommentLogic) CreateComment(req *types.CreateCommentReq) (resp *types.HttpCode, err error) {
 	// todo: add your logic here and delete this line
+
 	value := l.ctx.Value("userId")
 	userId, _ := strconv.ParseInt(fmt.Sprintf("%s", value), 10, 64)
 

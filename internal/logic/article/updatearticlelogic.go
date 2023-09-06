@@ -3,6 +3,7 @@ package article
 import (
 	"context"
 	"fmt"
+
 	"github.com/russross/blackfriday/v2"
 	"hawk/internal/dao/mysql"
 	"hawk/internal/svc"
@@ -50,5 +51,4 @@ func (l *UpdateArticleLogic) UpdateArticle(req *types.UpdateArticleReq) (resp *t
 		Data: struct {
 		}{},
 	}, nil
-
 }

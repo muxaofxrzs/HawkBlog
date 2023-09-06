@@ -69,7 +69,13 @@ func (j *VoteJwt) GetToken(id int64, userName string, name string, role string) 
 // VerifyToken 验证Token
 func (j *VoteJwt) VerifyToken(tokenID string) (*Claim, error) {
 	claim := &Claim{}
-	token, err := jwt.ParseWithClaims(tokenID, claim, j.keyFunc)
+
+	//token, err := jwt.ParseWithClaims(tokenID, claim, j.keyFunc)
+	token, err := jwt.ParseWithClaims(tokenID, claim, func(token *jwt.Token) (interface{}, error) {
+		bytes := []byte(TokenIssuer)
+		return bytes, nil
+	})
+
 	if err != nil {
 		return nil, err
 	}

@@ -45,11 +45,13 @@ type AddArticleReq struct {
 	Label   string `json:"label"`
 }
 
+
 type AddDraftReq struct {
 	Title   string `json:"title"`
 	Content string `json:"content"`
 	Label   string `json:"label"`
 }
+
 
 type UpdateArticleReq struct {
 	ArticleId int64  `json:"articleId"`
@@ -57,17 +59,21 @@ type UpdateArticleReq struct {
 }
 
 type ExamineReq struct {
+
 	ArticleId int64 `json:"articleId"`
 }
 
 type ExamineArticlesReq struct {
 	ArticleId int64 `json:"articleId"`
 	PageSize  int64 `json:"pageSize"`
+
+	Title string `json:"title"`
 }
 
 type DeleteReq struct {
 	ArticleId int64 `json:"articleId"`
 }
+
 
 type LikeReq struct {
 	ArticleId int64 `json:"articleId"`

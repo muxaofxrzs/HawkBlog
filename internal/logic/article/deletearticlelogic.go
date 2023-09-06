@@ -27,7 +27,6 @@ func NewDeleteArticleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Del
 func (l *DeleteArticleLogic) DeleteArticle(req *types.DeleteReq) (resp *types.HttpCodeResp, err error) {
 	// todo: add your logic here and delete this line
 	articleId := req.ArticleId
-
 	err = mysql.DeleteEssay(articleId)
 	if err != nil {
 		return &types.HttpCodeResp{

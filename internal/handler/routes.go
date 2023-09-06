@@ -63,6 +63,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodPost,
+
 				Path:    "/updateArticle",
 				Handler: article.UpdateArticleHandler(serverCtx),
 			},
@@ -73,6 +74,7 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 			{
 				Method:  http.MethodGet,
+
 				Path:    "/examineArticle",
 				Handler: article.ExamineArticleHandler(serverCtx),
 			},
@@ -97,38 +99,42 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	)
 
 	server.AddRoutes(
-		[]rest.Route{
-			{
-				Method:  http.MethodPost,
-				Path:    "/article",
-				Handler: comment.CreateCommentHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodDelete,
-				Path:    "/article",
-				Handler: comment.DeleteCommentHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPut,
-				Path:    "/article",
-				Handler: comment.UpdateCommentHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodGet,
-				Path:    "/article",
-				Handler: comment.GetCommentHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/article/like",
-				Handler: comment.PostCommentLikeHandler(serverCtx),
-			},
-			{
-				Method:  http.MethodPost,
-				Path:    "/articletoc",
-				Handler: comment.CommentToCommentHandler(serverCtx),
-			},
-		},
+
+		rest.WithMiddlewares(
+			[]rest.Middleware{serverCtx.AuthInterceptor},
+			[]rest.Route{
+				{
+					Method:  http.MethodPost,
+					Path:    "/article",
+					Handler: comment.CreateCommentHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodDelete,
+					Path:    "/article",
+					Handler: comment.DeleteCommentHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPut,
+					Path:    "/article",
+					Handler: comment.UpdateCommentHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/article",
+					Handler: comment.GetCommentHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/article/like",
+					Handler: comment.PostCommentLikeHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/articletoc",
+					Handler: comment.CommentToCommentHandler(serverCtx),
+				},
+			}...,
+		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),
 		rest.WithPrefix("/comment"),
 	)
