@@ -1,13 +1,13 @@
 package comment
 
 import (
-	"HawkBlog/internal/dao/mongo"
-	"HawkBlog/internal/dao/redis"
 	"context"
 	"fmt"
+	"hawk/internal/dao/mongo"
+	"hawk/internal/dao/redis"
 
-	"HawkBlog/internal/svc"
-	"HawkBlog/internal/types"
+	"hawk/internal/svc"
+	"hawk/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -27,7 +27,9 @@ func NewGetCommentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetCom
 }
 
 func (l *GetCommentLogic) GetComment(req *types.GetAllCommentReq) (resp *types.HttpCode, err error) {
+
 	commentIdList, err := redis.GetComment(req)
+
 	if err != nil {
 		return &types.HttpCode{
 			Code:    types.DoErr,

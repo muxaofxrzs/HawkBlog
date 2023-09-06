@@ -1,11 +1,12 @@
 package comment
 
 import (
-	"HawkBlog/internal/dao/mongo"
-	"HawkBlog/internal/dao/redis"
-	"HawkBlog/internal/svc"
-	"HawkBlog/internal/types"
 	"context"
+	"hawk/internal/dao/mongo"
+	"hawk/internal/dao/redis"
+	"hawk/internal/svc"
+	"hawk/internal/types"
+
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -25,7 +26,6 @@ func NewDeleteCommentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Del
 
 func (l *DeleteCommentLogic) DeleteComment(req *types.DeleteCommentReq) (resp *types.HttpCode, err error) {
 	// todo: add your logic here and delete this line
-	//在mongo删除指定评论信息
 	err = mongo.DeleteComment(req)
 	if err != nil {
 		return &types.HttpCode{

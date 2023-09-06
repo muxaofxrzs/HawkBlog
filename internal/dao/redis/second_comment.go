@@ -1,11 +1,11 @@
 package redis
 
 import (
-	"HawkBlog/internal/types"
-	"HawkBlog/model"
 	"context"
 	"fmt"
 	"github.com/go-redis/redis/v8"
+	"hawk/internal/types"
+	"hawk/model"
 	"strconv"
 	"time"
 )

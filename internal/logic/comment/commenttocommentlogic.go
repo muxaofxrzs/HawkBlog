@@ -1,17 +1,17 @@
 package comment
 
 import (
-	"HawkBlog/internal/dao/mongo"
-	"HawkBlog/internal/dao/redis"
-	"HawkBlog/internal/pkg/snowflake"
-	"HawkBlog/model"
 	"context"
 	"fmt"
+	"hawk/internal/dao/mongo"
+	"hawk/internal/dao/redis"
+	"hawk/internal/pkg/snowflake"
+	"hawk/model"
 	"strconv"
 	"time"
 
-	"HawkBlog/internal/svc"
-	"HawkBlog/internal/types"
+	"hawk/internal/svc"
+	"hawk/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -36,7 +36,7 @@ func (l *CommentToCommentLogic) CommentToComment(req *types.CommentToCommentReq)
 	userId, _ := strconv.ParseInt(fmt.Sprintf("%s", value), 10, 64)
 	comment := &model.ArticleComment{
 		UserId:     userId,
-		CommentId:  snowflake.GenID(),
+		CommentId:  snowflake.GenId(),
 		Comment:    req.Comment,
 		CreateTime: time.Now(),
 		UpdateTime: time.Now(),
@@ -74,4 +74,5 @@ func (l *CommentToCommentLogic) CommentToComment(req *types.CommentToCommentReq)
 		Message: "添加评论信息成功",
 		Data:    comment,
 	}, nil
+
 }

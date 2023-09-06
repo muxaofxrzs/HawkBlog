@@ -3,10 +3,10 @@ package comment
 import (
 	"net/http"
 
-	"HawkBlog/internal/logic/comment"
-	"HawkBlog/internal/svc"
-	"HawkBlog/internal/types"
 	"github.com/zeromicro/go-zero/rest/httpx"
+	"hawk/internal/logic/comment"
+	"hawk/internal/svc"
+	"hawk/internal/types"
 )
 
 func CommentToCommentHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {

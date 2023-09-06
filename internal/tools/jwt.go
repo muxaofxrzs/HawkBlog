@@ -74,6 +74,7 @@ func (j *VoteJwt) VerifyToken(tokenID string) (*Claim, error) {
 		bytes := []byte(TokenIssuer)
 		return bytes, nil
 	})
+
 	if err != nil {
 		return nil, err
 	}

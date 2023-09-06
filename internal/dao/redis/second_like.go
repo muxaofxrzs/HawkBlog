@@ -1,10 +1,10 @@
 package redis
 
 import (
-	"HawkBlog/internal/types"
-	"HawkBlog/model"
 	"context"
 	"fmt"
+	"hawk/internal/types"
+	"hawk/model"
 	"strconv"
 )
 

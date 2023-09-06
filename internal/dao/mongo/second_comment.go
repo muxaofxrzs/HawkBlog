@@ -1,10 +1,10 @@
 package mongo
 
 import (
-	"HawkBlog/internal/types"
-	"HawkBlog/model"
 	"context"
 	"go.mongodb.org/mongo-driver/bson"
+	"hawk/internal/types"
+	"hawk/model"
 	"log"
 	"strconv"
 	"time"

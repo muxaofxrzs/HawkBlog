@@ -1,15 +1,15 @@
 package comment
 
 import (
-	"HawkBlog/internal/dao/mongo"
-	"HawkBlog/internal/dao/mysql"
-	"HawkBlog/internal/dao/redis"
 	"context"
 	"fmt"
+	"hawk/internal/dao/mongo"
+	"hawk/internal/dao/mysql"
+	"hawk/internal/dao/redis"
 	"strconv"
 
-	"HawkBlog/internal/svc"
-	"HawkBlog/internal/types"
+	"hawk/internal/svc"
+	"hawk/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -51,7 +51,8 @@ func (l *PostCommentLikeLogic) PostCommentLike(req *types.PostCommentLikeReq) (r
 		}, err
 	}
 	//添加点赞记录
-	err = mongo.PostCommentLike(status, req)
+
+	err = mysql.PostCommentLike(status, userId, req)
 	if err != nil {
 		return &types.HttpCode{
 			Code:    types.DoErr,
@@ -59,13 +60,13 @@ func (l *PostCommentLikeLogic) PostCommentLike(req *types.PostCommentLikeReq) (r
 			Data:    struct{}{},
 		}, err
 	}
-	err = mysql.PostCommentLike(status, userId, req.CommentId)
+	//设置mongo中点赞的变化
+	err = mongo.PostCommentLike(status, req)
 	if err != nil {
 		return &types.HttpCode{
 			Code:    types.DoErr,
 			Message: "评论信息点赞失败",
 			Data:    struct{}{},
-			//设置mongo中点赞的变化
 		}, err
 	}
 	//在redis修改评论的热度

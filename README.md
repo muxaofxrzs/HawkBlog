@@ -1,4 +1,4 @@
-# HawkBlog
+# hawk
 Build a blog using grpc and go-zero
 ## V1版本
 1. 练习使用grpc和go-zero实现个人博客的项目。

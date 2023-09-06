@@ -1,9 +1,9 @@
 package mongo
 
 import (
-	"HawkBlog/internal/types"
 	"context"
 	"go.mongodb.org/mongo-driver/bson"
+	"hawk/internal/types"
 	"strconv"
 )
 

@@ -1,11 +1,11 @@
 package comment
 
 import (
-	"HawkBlog/internal/dao/mongo"
-	"HawkBlog/internal/dao/redis"
-	"HawkBlog/internal/svc"
-	"HawkBlog/internal/types"
 	"context"
+	"hawk/internal/dao/mongo"
+	"hawk/internal/dao/redis"
+	"hawk/internal/svc"
+	"hawk/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

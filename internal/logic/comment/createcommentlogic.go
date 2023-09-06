@@ -1,17 +1,17 @@
 package comment
 
 import (
-	"HawkBlog/internal/dao/mongo"
-	"HawkBlog/internal/dao/redis"
-	"HawkBlog/internal/pkg/snowflake"
-	"HawkBlog/model"
 	"context"
 	"fmt"
+	"hawk/internal/dao/mongo"
+	"hawk/internal/dao/redis"
+	"hawk/internal/pkg/snowflake"
+	"hawk/model"
 	"strconv"
 	"time"
 
-	"HawkBlog/internal/svc"
-	"HawkBlog/internal/types"
+	"hawk/internal/svc"
+	"hawk/internal/types"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -32,11 +32,15 @@ func NewCreateCommentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Cre
 
 func (l *CreateCommentLogic) CreateComment(req *types.CreateCommentReq) (resp *types.HttpCode, err error) {
 	// todo: add your logic here and delete this line
+
 	value := l.ctx.Value("userId")
 	userId, _ := strconv.ParseInt(fmt.Sprintf("%s", value), 10, 64)
+
+	//var userId int64
+	//userId = l.ctx.Value("id").(int64)
 	comment := &model.ArticleComment{
 		UserId:     userId,
-		CommentId:  snowflake.GenID(),
+		CommentId:  snowflake.GenId(),
 		Comment:    req.Comment,
 		CreateTime: time.Now(),
 		UpdateTime: time.Now(),

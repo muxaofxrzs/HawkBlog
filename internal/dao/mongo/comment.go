@@ -1,12 +1,11 @@
 package mongo
 
 import (
-	"HawkBlog/internal/types"
-	"HawkBlog/model"
 	"context"
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
-	"log"
+	"hawk/internal/types"
+	"hawk/model"
 	"strconv"
 	"time"
 )
@@ -23,17 +22,36 @@ func CreateComment(articleId int64, req *model.ArticleComment) error {
 }
 
 // 获取指定博客的所有评论
-func GetAllComment(articleId int64, commentIdList []int64) (data []model.ArticleComment, err error) {
-	collection := ClientMo.Database("hawk").Collection(strconv.FormatInt(articleId, 10))
+// <<<<<<< HEAD
+//
+//	func GetAllComment(articleId int64, commentIdList []int64) (data []model.ArticleComment, err error) {
+//		collection := ClientMo.Database("hawk").Collection(strconv.FormatInt(articleId, 10))
+//		// 构建查询条件
+//		for _, v := range commentIdList {
+//			filter := bson.M{"status": 0, "commentid": v}
+//			var result model.ArticleComment
+//			err = collection.FindOne(context.Background(), filter).Decode(&result)
+//			if err != nil {
+//				log.Fatalf("查询错误：%v", err)
+//			}
+//			data = append(data, result)
+//
+// =======
+func GetAllComment(req *types.GetAllCommentReq) (data []model.ArticleComment, err error) {
+	collection := ClientMo.Database("hawk").Collection(strconv.FormatInt(req.ArticleId, 10))
 	// 构建查询条件
-	for _, v := range commentIdList {
-		filter := bson.M{"status": 0, "commentid": v}
-		var result model.ArticleComment
-		err = collection.FindOne(context.Background(), filter).Decode(&result)
-		if err != nil {
-			log.Fatalf("查询错误：%v", err)
-		}
-		data = append(data, result)
+	filter := bson.M{"status": 0}
+	// 执行查询操作
+	cur, err := collection.Find(context.Background(), filter)
+	if err != nil {
+		fmt.Println("mongo数据查询失败")
+		return data, err
+	}
+	// 遍历查询结果
+	for cur.Next(context.Background()) {
+		var d model.ArticleComment
+		err = cur.Decode(&d)
+		data = append(data, d)
 	}
 	return
 }

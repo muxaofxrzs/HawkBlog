@@ -1,11 +1,17 @@
 package redis
 
 import (
-	"HawkBlog/internal/types"
-	"HawkBlog/model"
+<<<<<<< HEAD
+	"hawk/internal/types"
+	"hawk/model"
 	"context"
 	"fmt"
 	"github.com/go-redis/redis/v8"
+=======
+	"context"
+	"github.com/go-redis/redis/v8"
+	"hawk/model"
+>>>>>>> 2cb677a71339b35127a74f83095f18be7858e549
 	"strconv"
 	"time"
 )
@@ -25,6 +31,7 @@ func CreateComment(articleId int64, req *model.ArticleComment) (err error) {
 	_, err = pipeline.Exec(context.Background())
 	return err
 }
+<<<<<<< HEAD
 
 // 查看评论
 func GetComment(req *types.GetAllCommentReq) (commentIdList []int64, err error) {
@@ -56,3 +63,5 @@ func DeleteComment(req *types.DeleteCommentReq) (err error) {
 	}
 	return err
 }
+=======
+>>>>>>> 2cb677a71339b35127a74f83095f18be7858e549

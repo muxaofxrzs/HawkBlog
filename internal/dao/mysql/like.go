@@ -3,6 +3,7 @@ package mysql
 import (
 	"context"
 	"fmt"
+	"hawk/internal/types"
 )
 
 func CheckLikeExist(userId, articleId, commentId int64) (status int64, err error) {
@@ -16,15 +17,15 @@ func CheckLikeExist(userId, articleId, commentId int64) (status int64, err error
 	return status, err
 }
 
-func PostCommentLike(status, userId, commentId int64) (err error) {
+func PostCommentLike(status, userId int64, req *types.PostCommentLikeReq) (err error) {
 	//用户未点赞就添加一条点赞记录
 	if status == 0 {
 		sqlStr := "update comment_like set status = 1 where user_id = ? and comment_id = ?"
-		_, err = GlobalConn.ExecCtx(context.Background(), sqlStr, userId, commentId)
+		_, err = GlobalConn.ExecCtx(context.Background(), sqlStr, userId, req.CommentId)
 		return err
 	}
 	//用户点过赞的话就将用户设置status为0
 	sqlStr := "update comment_like set status = 0 where user_id = ? and comment_id = ?"
-	_, err = GlobalConn.ExecCtx(context.Background(), sqlStr, userId, commentId)
+	_, err = GlobalConn.ExecCtx(context.Background(), sqlStr, userId, req.CommentId)
 	return err
 }
