@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"hawk/global"
 	"hawk/internal/config"
 	"hawk/internal/dao/mongo"
 	"hawk/internal/dao/mysql"
@@ -21,9 +22,17 @@ import (
 
 var configFile = flag.String("f", "etc/hawk.yaml", "the config file")
 
+func init() {
+	err := global.SetupCasbinEnforcer()
+	if err != nil {
+		fmt.Print("rbac预加载失败")
+		//log.Fatalf("init.SetupCasbinEnforcer err: %v", err)
+		//global.Logger.Fatalf("init.SetupCasbinEnforcer err: %v", err)
+	}
+}
 func main() {
 	flag.Parse()
-
+	config.Rbac()
 	mysql.New()
 	redis.CreateRedisClient()
 	mongo.NewMongo()
