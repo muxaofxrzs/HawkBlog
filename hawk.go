@@ -50,8 +50,8 @@ func main() {
 		http.HandleFunc("/register", im.Register)
 		http.HandleFunc("/publicChat", im.PublicChat)
 		http.HandleFunc("/p2pChat", im.P2pChat)
-		log.Println("IM Websocket Starting server at: 9090...")
-		err := http.ListenAndServe(":9090", nil)
+		log.Println("IM Websocket Starting server at: 8889...")
+		err := http.ListenAndServe(":8889", nil)
 		if err != nil {
 			log.Fatal("聊天服务启动失败！！！:", err)
 		}
