@@ -28,7 +28,8 @@ func main() {
 
 	go mysql.InitHeat()
 	mysql.New()
-	redis.CreateRedisClient()
+	redis.NewRe()
+	//redis.CreateRedisClient()
 	mongo.NewMongo()
 	defer func() {
 		mongo.CloseMongo()

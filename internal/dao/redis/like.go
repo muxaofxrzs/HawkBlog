@@ -1,17 +1,10 @@
 package redis
 
 import (
-<<<<<<< HEAD
-	"hawk/internal/types"
-	"hawk/model"
-	"context"
-	"fmt"
-=======
 	"context"
 	"fmt"
 	"hawk/internal/types"
 	"hawk/model"
->>>>>>> 2cb677a71339b35127a74f83095f18be7858e549
 	"strconv"
 )
 

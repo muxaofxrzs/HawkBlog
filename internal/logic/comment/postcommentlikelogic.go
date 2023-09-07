@@ -52,7 +52,7 @@ func (l *PostCommentLikeLogic) PostCommentLike(req *types.PostCommentLikeReq) (r
 	}
 	//添加点赞记录
 
-	err = mysql.PostCommentLike(status, userId, req)
+	err = mysql.PostCommentLike(status, userId, req.CommentId)
 	if err != nil {
 		return &types.HttpCode{
 			Code:    types.DoErr,
