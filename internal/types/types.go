@@ -57,7 +57,7 @@ type UpdateArticleReq struct {
 }
 
 type ExamineReq struct {
-	ArticleId int64 `json:"articleId"`
+	ArticleId int64 `form:"articleId"`
 }
 
 type ExamineArticlesReq struct {

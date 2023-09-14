@@ -80,7 +80,7 @@ type UpdateArticleReq {
 }
 
 type ExamineReq {
-	ArticleId int64 `json:"articleId"`
+	ArticleId int64 `form:"articleId"`
 }
 type ExamineArticlesReq {
 	ArticleId int64 `json:"articleId"`
