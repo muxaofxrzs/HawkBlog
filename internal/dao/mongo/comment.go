@@ -6,6 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"hawk/internal/types"
 	"hawk/model"
+	"log"
 	"strconv"
 	"time"
 )
@@ -22,24 +23,41 @@ func CreateComment(articleId int64, req *model.ArticleComment) error {
 }
 
 // 获取指定博客的所有评论
-func GetAllComment(req *types.GetAllCommentReq) (data []model.ArticleComment, err error) {
-	collection := ClientMo.Database("hawk").Collection(strconv.FormatInt(req.ArticleId, 10))
+// <<<<<<< HEAD
+func GetAllComment(articleId int64, commentIdList []int64) (data []model.ArticleComment, err error) {
+	collection := ClientMo.Database("hawk").Collection(strconv.FormatInt(articleId, 10))
 	// 构建查询条件
-	filter := bson.M{"status": 0}
-	// 执行查询操作
-	cur, err := collection.Find(context.Background(), filter)
-	if err != nil {
-		fmt.Println("mongo数据查询失败")
-		return data, err
-	}
-	// 遍历查询结果
-	for cur.Next(context.Background()) {
-		var d model.ArticleComment
-		err = cur.Decode(&d)
-		data = append(data, d)
+	for _, v := range commentIdList {
+		filter := bson.M{"status": 0, "commentid": v}
+		var result model.ArticleComment
+		err = collection.FindOne(context.Background(), filter).Decode(&result)
+		if err != nil {
+			log.Fatalf("查询错误：%v", err)
+		}
+		data = append(data, result)
 	}
 	return
 }
+
+// =======
+//func GetAllComment(req *types.GetAllCommentReq) (data []model.ArticleComment, err error) {
+//	collection := ClientMo.Database("hawk").Collection(strconv.FormatInt(req.ArticleId, 10))
+//	// 构建查询条件
+//	filter := bson.M{"status": 0}
+//	// 执行查询操作
+//	cur, err := collection.Find(context.Background(), filter)
+//	if err != nil {
+//		fmt.Println("mongo数据查询失败")
+//		return data, err
+//	}
+//	// 遍历查询结果
+//	for cur.Next(context.Background()) {
+//		var d model.ArticleComment
+//		err = cur.Decode(&d)
+//		data = append(data, d)
+//	}
+//	return
+//}
 
 // 删除指定博客的指定评论
 func DeleteComment(req *types.DeleteCommentReq) (err error) {
@@ -77,4 +95,23 @@ func CommentToComment(CommentId int64, req *model.ArticleComment) error {
 		fmt.Println("评论数据添加失败")
 	}
 	return err
+}
+func CheckCommentExist(articleId, commentId int64) (judge bool) {
+	collection := ClientMo.Database("hawk").Collection(strconv.FormatInt(articleId, 10))
+	filter := bson.M{"commentid": commentId, "status": 0}
+	count, err := collection.CountDocuments(context.Background(), filter)
+	fmt.Println(count)
+	if err != nil {
+		fmt.Println("err:", err)
+	}
+	if count != 1 {
+		return false
+	}
+	return true
+}
+func GetCommentCount(req *types.GetCommentCountReq) (count int64, err error) {
+	collection := ClientMo.Database("hawk").Collection(strconv.FormatInt(req.RequireId, 10))
+	filter := bson.M{"status": 0}
+	count, err = collection.CountDocuments(context.Background(), filter)
+	return count, err
 }

@@ -7,4 +7,5 @@ const (
 	DoErr       = 10003
 
 	NotFound = 10004 //信息不存在
+
 )

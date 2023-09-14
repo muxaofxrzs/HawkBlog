@@ -2,7 +2,9 @@ package comment
 
 import (
 	"context"
+	"fmt"
 	"hawk/internal/dao/mongo"
+	"hawk/internal/dao/redis"
 
 	"hawk/internal/svc"
 	"hawk/internal/types"
@@ -25,8 +27,9 @@ func NewGetCommentLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetCom
 }
 
 func (l *GetCommentLogic) GetComment(req *types.GetAllCommentReq) (resp *types.HttpCode, err error) {
-	// todo: add your logic here and delete this line
-	data, err := mongo.GetAllComment(req)
+
+	commentIdList, err := redis.GetComment(req)
+
 	if err != nil {
 		return &types.HttpCode{
 			Code:    types.DoErr,
@@ -34,6 +37,15 @@ func (l *GetCommentLogic) GetComment(req *types.GetAllCommentReq) (resp *types.H
 			Data:    struct{}{},
 		}, err
 	}
+	data, err := mongo.GetAllComment(req.ArticleId, commentIdList)
+	if err != nil {
+		return &types.HttpCode{
+			Code:    types.DoErr,
+			Message: "获取评论信息失败",
+			Data:    struct{}{},
+		}, err
+	}
+	fmt.Println(commentIdList)
 	return &types.HttpCode{
 		Code:    types.OK,
 		Message: "获取评论信息成功",

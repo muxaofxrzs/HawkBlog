@@ -22,3 +22,15 @@ type Article struct {
 	PageViews  int       `json:"pageViews" db:"PageViews"`
 	Heat       float64   `json:"heat" db:"Heat"`
 }
+
+type UserInfo struct {
+	Id          int64  `json:"id" db:"Id"`
+	UserName    string `json:"userName" db:"UserName"`
+	Name        string `json:"name" db:"Name"`
+	PassWord    string `json:"passWord" db:"PassWord"`
+	Email       string `json:"email" db:"Email"`
+	Gender      string `json:"gender" db:"Gender"`
+	Age         int    `json:"age" db:"Age"`
+	Interest    string `json:"interest" db:"Interest"`
+	PhoneNumber int64  `json:"phoneNumber" db:"PhoneNumber"`
+}

@@ -45,11 +45,13 @@ type AddArticleReq struct {
 	Label   string `json:"label"`
 }
 
+
 type AddDraftReq struct {
 	Title   string `json:"title"`
 	Content string `json:"content"`
 	Label   string `json:"label"`
 }
+
 
 type UpdateArticleReq struct {
 	ArticleId int64  `json:"articleId"`
@@ -57,17 +59,22 @@ type UpdateArticleReq struct {
 }
 
 type ExamineReq struct {
+
 	ArticleId int64 `form:"articleId"`
+
 }
 
 type ExamineArticlesReq struct {
 	ArticleId int64 `json:"articleId"`
 	PageSize  int64 `json:"pageSize"`
+
+	Title string `json:"title"`
 }
 
 type DeleteReq struct {
 	ArticleId int64 `json:"articleId"`
 }
+
 
 type LikeReq struct {
 	ArticleId int64 `json:"articleId"`
@@ -102,7 +109,10 @@ type UpdateCommentReq struct {
 }
 
 type GetAllCommentReq struct {
-	ArticleId int64 `json:"articleId"`
+	ArticleId     int64  `json:"articleId"`
+	Method        string `json:"method,options=[time,score],default=score"`
+	LastCommentId int64  `json:"lastCommentId,default=0"`
+	PageNumber    int64  `json:"pageNumber,default=10"`
 }
 
 type PostCommentLikeReq struct {
@@ -111,6 +121,36 @@ type PostCommentLikeReq struct {
 }
 
 type CommentToCommentReq struct {
-	CommmentId int64  `json:"commmentId"`
+	ArticleId  int64  `json:"articleId"`
+	CommmentId int64  `json:"commentId"`
 	Comment    string `json:"comment"`
 }
+
+type UpdateCommenttocReq struct {
+	FirstCommentId int64  `json:"firstCommentId"`
+	CommentId      int64  `json:"commentId"`
+	Comment        string `json:"comment"`
+}
+
+type DeleteCommenttocReq struct {
+	FirstCommentId int64 `json:"firstCommentId"`
+	CommentId      int64 `json:"commentId"`
+}
+
+type GetCommenttocReq struct {
+	FirstCommentId int64  `json:"firstCommentId"`
+	Method         string `json:"method,options=[time,score],default=score"`
+	LastCommentId  int64  `json:"lastCommentId,default=0"`
+	PageNumber     int64  `json:"pageNumber,default=10"`
+}
+
+type PostCommenttocLikeReq struct {
+	FirstCommentId int64 `json:"firstCommentId"`
+	CommentId      int64 `json:"commentId"`
+}
+
+type GetCommentCountReq struct {
+	RequireId int64 `json:"requireId"`
+}
+
+

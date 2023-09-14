@@ -3,7 +3,7 @@ package comment
 import (
 	"context"
 	"hawk/internal/dao/mongo"
-
+	"hawk/internal/dao/redis"
 	"hawk/internal/svc"
 	"hawk/internal/types"
 
@@ -34,6 +34,15 @@ func (l *DeleteCommentLogic) DeleteComment(req *types.DeleteCommentReq) (resp *t
 			Data:    struct{}{},
 		}, err
 	}
+	err = redis.DeleteComment(req)
+	if err != nil {
+		return &types.HttpCode{
+			Code:    types.DoErr,
+			Message: "删除评论失败",
+			Data:    struct{}{},
+		}, err
+	}
+
 	return &types.HttpCode{
 		Code:    types.OK,
 		Message: "删除评论成功",

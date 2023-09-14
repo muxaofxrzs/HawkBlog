@@ -32,8 +32,17 @@ func (l *PostCommentLikeLogic) PostCommentLike(req *types.PostCommentLikeReq) (r
 	// todo: add your logic here and delete this line
 	value := l.ctx.Value("userId")
 	userId, _ := strconv.ParseInt(fmt.Sprintf("%s", value), 10, 64)
+	//判断点赞的评论是否被删除了
+	judge := mongo.CheckCommentExist(req.ArticleId, req.CommentId)
+	if !judge {
+		return &types.HttpCode{
+			Code:    types.DoErr,
+			Message: "评论不存在",
+			Data:    struct{}{},
+		}, err
+	}
 	//判断用户点赞记录是否存在
-	status, err := mysql.CheckLikeExist(userId, req)
+	status, err := mysql.CheckLikeExist(userId, req.ArticleId, req.CommentId)
 	if err != nil {
 		return &types.HttpCode{
 			Code:    types.DoErr,
@@ -42,7 +51,8 @@ func (l *PostCommentLikeLogic) PostCommentLike(req *types.PostCommentLikeReq) (r
 		}, err
 	}
 	//添加点赞记录
-	err = mysql.PostCommentLike(status, userId, req)
+
+	err = mysql.PostCommentLike(status, userId, req.CommentId)
 	if err != nil {
 		return &types.HttpCode{
 			Code:    types.DoErr,

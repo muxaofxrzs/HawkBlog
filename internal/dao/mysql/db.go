@@ -3,7 +3,6 @@ package mysql
 import (
 	"fmt"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
-	//这里少了一句
 )
 
 var GlobalConn sqlx.SqlConn
