@@ -65,10 +65,10 @@ type ExamineReq struct {
 }
 
 type ExamineArticlesReq struct {
-	ArticleId int64 `json:"articleId"`
-	PageSize  int64 `json:"pageSize"`
+	ArticleId int64 `form:"articleId"`
+	PageSize  int64 `form:"pageSize"`
 
-	Title string `json:"title"`
+	Title string `form:"title"`
 }
 
 type DeleteReq struct {
