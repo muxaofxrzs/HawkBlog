@@ -83,8 +83,8 @@ type ExamineReq {
 	ArticleId int64 `form:"articleId"`
 }
 type ExamineArticlesReq {
-	ArticleId int64 `json:"articleId"`
-	PageSize  int64 `json:"pageSize"`
+	ArticleId int64 `form:"articleId"`
+	PageSize  int64 `form:"pageSize"`
 }
 type DeleteReq {
 	ArticleId int64 `json:"articleId"`
