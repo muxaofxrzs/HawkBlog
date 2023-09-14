@@ -81,9 +81,9 @@ type LikeReq struct {
 }
 
 type ListTitleReq struct {
-	Title     string `json:"title"`
-	ArticleId int64  `json:"articleId"`
-	PageSize  int    `json:"pageSize"`
+	Title     string `form:"title"`
+	ArticleId int64  `form:"articleId"`
+	PageSize  int    `form:"pageSize"`
 }
 
 type HttpCodeResp struct {
